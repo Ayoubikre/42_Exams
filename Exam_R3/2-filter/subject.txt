@@ -1,0 +1,73 @@
+/---------------------------------  offc : ---
+
+filter:
+Allowed functions: read, strlen, malloc, calloc, realloc, free, printf, perror
+------------------------------------------------------------------------------
+
+Write a programm taht will take one and only one argument s.
+
+Your programm will then read from stdin and write all the content read in stdout
+except that every occurence of s must be replaced by '*'.
+
+For example :
+
+./filter bonjour
+will behave the same way as:
+sed 's/bonjour/*******/g'
+
+in case of error during read or a malloc you must write "Error: " followed by
+the error message in stderr and return 1.
+
+$> echo 'abcdefgaaaabcdefabc' | ./filter abc | cat -e
+***defgaaa***def***
+
+If the program is called whitout argument or with an empty argument or with
+multiples arguments it must return 1.
+
+
+
+
+
+/--------------------------------- not offc : ---
+
+
+Assignment name			: filter
+Expected files			: filter.c
+Allowed functions   : malloc, free, calloc, realloc, write, read, perror
+-------------------------------------------------------
+
+Write a program that reads from the standard input and replaces every occurrence
+of a given word (provided as an argument) with a sequence of * of the same length.
+
+If no argument is given or if the input is empty, the program should return an error.
+
+We will not test with an empty string as an argument.
+
+You will display the modified text, preserving the rest of the input.
+
+Example:
+$> echo "The secret word is hidden in this text." | ./filter secret  
+The ****** word is hidden in this text.
+
+$> echo "banana banana apple" | ./filter banana  
+****** ****** apple
+
+Memory management is important: any allocated memory must be freed properly.
+
+echo '1234567890' | ./filter 1
+*234567890
+
+echo 'abc secret xyz secret 123 secret' | ./filter secret
+abc ****** xyz ****** 123 ******
+
+echo 'topsecret' | ./filter topsecret
+*********
+
+echo 'no match here' | ./filter xyz
+no match here
+
+echo 'abcdefghij' | ./filter def
+abc***ghij
+
+echo 'aaaaa' | ./filter aa
+****a
