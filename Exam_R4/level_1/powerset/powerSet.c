@@ -1,78 +1,87 @@
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   powerset.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/01 13:12:44 by mlaffita          #+#    #+#             */
+/*   Updated: 2025/05/07 12:07:02 by aakritah         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+									// Mine:
+
 #include <stdlib.h>
+#include <unistd.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <ctype.h>
 
-void print_subset(int *subset, int subset_size) {
-    for (int i = 0; i < subset_size; i++) {
-        printf("%d", subset[i]);
-        if (i < subset_size - 1)
-            printf(" ");
-    }
-    printf("\n");
-}
-
-// Quick function to calculate sum of current subset
-int calculate_sum(int *subset, int subset_size) {
-    int sum = 0;
-    for (int i = 0; i < subset_size; i++) {
-        sum += subset[i];
+int ft_sum(int *t2, int x)
+{
+    int sum=0;
+    int j=0;
+    while(j<x)
+    {
+        sum+=t2[j];
+        j++;
     }
     return sum;
 }
 
-void find_subsets(int *set, int set_size, int *subset, int subset_size, 
-                  int start_index, int target_sum) {
-    
-    // Calculate current sum
-    int current_sum = calculate_sum(subset, subset_size);
-    
-    // If we found the target sum, print the subset
-    if (current_sum == target_sum) {
-        print_subset(subset, subset_size);
-        return;
-    }
-    
-    // Loop through remaining elements starting from start_index
-    for (int i = start_index; i < set_size; i++) {
-        // Skip Duplications
-        if (i > start_index && set[i] == set[i - 1]) 
-            continue;
+void ft_solve(int n , int *t, int *t2, int *lock, int s, int x, int i)
+{
+    if(ft_sum(t2,x)==n)
+    {
+        int j=0;
+        while(j<x)
+        {
+            printf("%d ", t2[j]);
+            j++;
+        }
+                printf("\n");
 
-        // Include current element set[i] in the subset
-        subset[subset_size] = set[i];
-        
-        // Recursively find subsets starting from next element (i+1)
-        find_subsets(set, set_size, subset, subset_size + 1, 
-                    i + 1, target_sum);
-    }
+        return ;
+    }  
+
+    while(i<s)
+    {
+        if(lock[i])
+        {
+            i++;
+            continue;
+        }
+        lock[i]=1;
+            t2[x]=t[i];
+            ft_solve(n , t, t2, lock, s, x+1, i+1);
+        lock[i]=0;
+        i++;
+    }  
 }
 
-int main(int argc, char *argv[]) {
-    if (argc < 3) {
-        printf("Usage: %s <target_sum> <number1> <number2> ...\n", argv[0]);
+int main(int ac, char**ar)
+{
+    if(ac<2)
         return 1;
-    }
-
-    int target_sum = atoi(argv[1]);
-    int set_size = argc - 2;
     
-    int *set = malloc(set_size * sizeof(int));
-    if (!set) {
+    int s=ac-2;
+    int *t=calloc(s, sizeof(int ));
+    int *t2=calloc(s, sizeof(int ));
+    int *lock=calloc(s, sizeof(int ));
+    if(!t || !t || !lock)
         return 1;
+    int i=1;
+    int n=atoi(ar[i]);
+    i++;
+    int j=0;
+    while(i<ac)
+    {
+        t[j]=atoi(ar[i]);
+        j++;
+        i++;
     }
-
-    int *subset = malloc(set_size * sizeof(int));
-    if (!subset) {
-        free(set);
-        return 1;
-    }
-
-    for (int i = 0; i < set_size; i++) {
-        set[i] = atoi(argv[i + 2]);
-    }
-
-    find_subsets(set, set_size, subset, 0, 0, target_sum);
-    
-    free(set);
-    free(subset);
+    ft_solve(n , t, t2, lock, s, 0,0);
+    free(t);
     return 0;
 }
