@@ -4,8 +4,9 @@
 //read vbc.c and you will understand
 
 #include <stdio.h>
-#include <malloc.h>
 #include <ctype.h>
+#include <stdlib.h>
+// #include <malloc.h>
 
 typedef struct node {
     enum {
