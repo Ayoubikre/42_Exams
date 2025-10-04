@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/01 13:12:44 by mlaffita          #+#    #+#             */
-/*   Updated: 2025/10/03 21:44:01 by aakritah         ###   ########.fr       */
+/*   Created: 2025/10/04 18:59:01 by aakritah          #+#    #+#             */
+/*   Updated: 2025/10/04 18:59:31 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int main(int ac, char **ar)
     int *t2 = calloc(s, sizeof(int));
     int *lock = calloc(s, sizeof(int));
     if (!t || !t2 || !lock)
-        return 1;
+        return (free(t),free(t2),free(lock), 1);
     int n = atoi(ar[1]);
     for (int j = 0; j < s; j++)
         t[j] = atoi(ar[j + 2]);

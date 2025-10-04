@@ -18,6 +18,62 @@ float    distance(float a[2], float b[2])
 }
 
 
+// void swap(int *a, int *b)
+// {
+//     int tmp = *a;
+//     *a = *b;
+//     *b = tmp;
+// }
+// float calculate_path_length(float (*array)[2], int *perm, ssize_t size)
+// {
+//     float length = 0.0f;
+//     for (ssize_t i = 0; i < size - 1; i++)
+//         length += distance(array[perm[i]], array[perm[i + 1]]);
+
+//     length += distance(array[perm[size - 1]], array[perm[0]]);
+//     return length;
+// }
+
+// void permute(float (*array)[2], int *perm, ssize_t size, ssize_t start, float *min_path)
+// {
+//     if (start == size)
+//     {
+//         float path_length = calculate_path_length(array, perm, size);
+//         if (path_length < *min_path)
+//             *min_path = path_length;
+//         return;
+//     }
+
+//     for (ssize_t i = start; i < size; i++)
+//     {
+//         swap(&perm[start], &perm[i]);
+//         permute(array, perm, size, start + 1, min_path);
+//         swap(&perm[start], &perm[i]);
+//     }
+// }
+
+// float tsp(float (*array)[2], ssize_t size)
+// {
+//     if (size < 2)
+//         return 0.0f;
+//     int *perm = malloc(sizeof(int) * size);
+//     if (!perm)
+//     {
+//         perror("malloc");
+//         return 0.0f;
+//     }
+
+//     for (ssize_t i = 0; i < size; i++)
+//         perm[i] = i;
+//     float shortest_length = FLT_MAX;
+//     permute(array, perm, size, 0, &shortest_length);
+//     free(perm);
+//     return shortest_length;
+// }
+
+
+
+
 ssize_t    file_size(FILE *file)
 {
     char    *buffer = NULL;

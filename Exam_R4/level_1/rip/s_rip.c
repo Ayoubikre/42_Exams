@@ -1,4 +1,6 @@
+
 #include <stdio.h>
+#include <unistd.h>
 
 void solve(char *str, int pos, int open, int to_remove, char *tmp)
 {

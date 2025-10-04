@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/01 13:12:17 by mlaffita          #+#    #+#             */
-/*   Updated: 2025/05/07 12:06:37 by aakritah         ###   ########.fr       */
+/*   Created: 2025/10/04 18:59:49 by aakritah          #+#    #+#             */
+/*   Updated: 2025/10/04 18:59:53 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-
 
 void ft_sort(char *t, int s)
 {
@@ -37,7 +36,7 @@ void ft_sort(char *t, int s)
     }
 }
 
-void ft_solve(char *t, char *t2, int *used, int s, int x)
+void ft_solve(char *t, char *t2, int *lock, int s, int x)
 {
     if (x == s)
     {
@@ -49,16 +48,16 @@ void ft_solve(char *t, char *t2, int *used, int s, int x)
     int i=0;
     while(i<s)
     {
-        if (used[i])
+        if (lock[i])
         {
             i++;
             continue;
         }
 
-        used[i] = 1;
+        lock[i] = 1;
             t2[x] = t[i];
-            ft_solve(t, t2, used, s, x + 1);
-        used[i] = 0;
+            ft_solve(t, t2, lock, s, x + 1);
+        lock[i] = 0;
 
         i++;
     }
@@ -75,16 +74,16 @@ int main(int ac, char **ar)
 
     char *t = malloc(s + 1);
     char *t2 = malloc(s + 1);
-    int *used = calloc(s, sizeof(int));
-    if (!t || !t2 || !used)
-        return 1;
+    int *lock = calloc(s, sizeof(int));
+    if (!t || !t2 || !lock)
+        return (free(t),free(t2),free(lock), 1);
 
     strcpy(t, ar[1]);
     ft_sort(t, s);
-    ft_solve(t, t2, used, s, 0);
+    ft_solve(t, t2, lock, s, 0);
 
     free(t);
     free(t2);
-    free(used);
+    free(lock);
     return 0;
 }
