@@ -12,7 +12,7 @@ In case of error or invalid parameter the function must return -1.
 example:
 
 int main() {
-	int fd = ft_popen("ls", (char *const[]){"ls", NULL}, 'r');
+	int fd = ft_popen("a", (char *const[]){"ls", NULL}, 'r');
 
 	char *line;
 	while(line = get_next_line(fd))
