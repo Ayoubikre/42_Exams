@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
+
 void ft_solve(int n, int *t, int *t2, int *lock, int s, int x, int i, int sum)
 {
     if (sum == n)
