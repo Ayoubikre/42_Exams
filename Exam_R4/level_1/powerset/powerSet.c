@@ -18,18 +18,6 @@
 #include <stdio.h>
 #include <ctype.h>
 
-int ft_sum(int *t2, int x)
-{
-    int sum=0;
-    int j=0;
-    while(j<x)
-    {
-        sum+=t2[j];
-        j++;
-    }
-    return sum;
-}
-
 void ft_solve(int n, int *t, int *t2, int *lock, int s, int x, int i, int sum)
 {
     if (sum == n)
